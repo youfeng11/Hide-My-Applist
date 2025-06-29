@@ -1,8 +1,9 @@
 package icu.nullptr.hidemyapplist.ui.activity
 
 import android.content.res.Resources
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -17,6 +18,11 @@ class MainActivity : MaterialActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,10 +45,4 @@ class MainActivity : MaterialActivity() {
     }
 
     override fun computeUserThemeKey() = ThemeUtils.colorTheme + ThemeUtils.getNightThemeStyleRes(this)
-
-    override fun onApplyTranslucentSystemBars() {
-        super.onApplyTranslucentSystemBars()
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
-    }
 }
